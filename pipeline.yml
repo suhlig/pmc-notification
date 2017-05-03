@@ -10,7 +10,7 @@ resources:
     type: git
     source:
       uri: https://github.com/suhlig/pmc-notification
-      branch: wip-bootstrap
+      branch: master
       paths: ["tasks/*"]
 
 jobs:
