@@ -1,0 +1,23 @@
+---
+platform: linux
+
+image_resource:
+  type: docker-image
+  source:
+    - repository: ruby
+    - tag: alpine
+
+inputs:
+  - name: markdown
+  - name: pipeline
+
+outputs:
+  - name: html
+
+params:
+  MARKDOWN_FILE:
+  HTML_FILE:
+  BUNDLE_GEMFILE: pipeline/tasks/Gemfile
+
+run:
+  path: pipeline/tasks/md2html.sh
