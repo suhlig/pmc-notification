@@ -18,9 +18,18 @@ Steps:
 
 Some useful `fly` commands:
 
-```bash
-fly -t lite login -c http://$(docker-machine ip):8080
-fly -t lite set-pipeline -p pmc-notes -c pipeline.yml
-fly -t lite unpause-pipeline -p pmc-notes
-fly intercept -t lite -b 3
-```
+* `pmc-notes`
+
+  ```bash
+  fly --target=lite login --concourse-url=http://$(docker-machine ip):8080
+  fly --target=lite set-pipeline --pipeline=pmc-notes --config=pipelines/pmc-notes.yml
+  fly --target=lite unpause-pipeline --pipeline=pmc-notes
+  fly --target=lite intercept -b 3
+  ```
+
+* `docker`
+
+  ```bash
+  fly --target=lite set-pipeline --pipeline=docker --config=pipelines/docker.yml --load-vars-from=secrets.yml
+  fly --target=lite unpause-pipeline --pipeline=docker
+  ```
