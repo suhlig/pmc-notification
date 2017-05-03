@@ -3,7 +3,7 @@ resources:
   type: git
   source:
     uri: https://github.com/suhlig/pmc-notification
-    branch: wip-docker-image
+    branch: master
     paths: [ docker/ruby/Dockerfile ]
 
 - name: Ruby CI Image
