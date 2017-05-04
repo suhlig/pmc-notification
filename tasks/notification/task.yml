@@ -4,7 +4,7 @@ platform: linux
 image_resource:
   type: docker-image
   source:
-    - repository: suhligibm/ruby-ci-image
+    - repository: suhligibm/ci-pmc-notes
 
 inputs:
   - name: pipeline

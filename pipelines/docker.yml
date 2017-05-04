@@ -1,0 +1,55 @@
+resources:
+- name: pipeline
+  type: git
+  source:
+    uri: https://github.com/suhlig/pmc-notification
+    branch: master
+    paths: [ tasks/docker, tasks/erb ]
+
+- name: ruby-base-image
+  type: docker-image
+  source:
+    repository: suhligibm/ci-ruby-base
+    username: {{dockerhub-username}}
+    password: {{dockerhub-password}}
+
+- name: pmc-notes-image
+  type: docker-image
+  source:
+    repository: suhligibm/ci-pmc-notes
+    username: {{dockerhub-username}}
+    password: {{dockerhub-password}}
+
+jobs:
+- name: Create base image
+  plan:
+  - get: pipeline
+    trigger: true
+
+  - put: ruby-base-image
+    params:
+      build: pipeline/tasks/docker
+      dockerfile: pipeline/tasks/docker/ruby-base.docker
+
+- name: Create PMC Notes image
+  plan:
+  - get: pipeline
+    trigger: true
+
+  - get: ruby-base-image
+    trigger: true
+
+  - task: Collect gems into Docker file
+    file: pipeline/tasks/erb/task.yml
+    input_mapping:
+      source: pipeline
+      pipeline: pipeline
+    output_mapping: { target: rendered }
+    params:
+      SOURCE_FILE: tasks/docker/pmc-notes.docker.erb
+      TARGET_FILE: pmc-notes.docker
+
+  - put: pmc-notes-image
+    params:
+      build: rendered
+      dockerfile: rendered/pmc-notes.docker
