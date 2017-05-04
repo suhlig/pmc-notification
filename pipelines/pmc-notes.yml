@@ -23,7 +23,7 @@ jobs:
         trigger: false
 
       - task: Convert Markdown to HTML
-        file: pipeline/tasks/md2html.yml
+        file: pipeline/tasks/md2html/task.yml
         input_mapping:
           - markdown: runtime-pmc-notes.markdown
           - pipeline: pipeline
@@ -33,7 +33,7 @@ jobs:
           HTML_FILE: html/2017-05-03-runtime.html
 
       - task: Send notification
-        file: pipeline/tasks/notify.yml
+        file: pipeline/tasks/notification/task.yml
         input_mapping:
           - pipeline: pipeline
           - html: runtime-pmc-notes.html

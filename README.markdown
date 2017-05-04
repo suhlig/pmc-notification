@@ -30,6 +30,11 @@ Some useful `fly` commands:
 * `docker`
 
   ```bash
-  fly --target=lite set-pipeline --pipeline=docker --config=pipelines/docker.yml --load-vars-from=secrets.yml
-  fly --target=lite unpause-pipeline --pipeline=docker
+  fly --target=lite set-pipeline --pipeline=ruby-ci-image --config=pipelines/ruby-ci-image.yml --load-vars-from=secrets.yml
+  fly --target=lite unpause-pipeline --pipeline=ruby-ci-image
   ```
+
+# TODO
+
+* Parse all `Gemfile`s, scrape the gems from them, and install them when building the docker image
+* Keep the ruby-ci-image generic and add a layer on top of it with all project-specific gems
