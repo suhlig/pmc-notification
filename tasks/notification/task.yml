@@ -1,0 +1,21 @@
+---
+platform: linux
+
+image_resource:
+  type: docker-image
+  source:
+    - repository: suhligibm/ruby-ci-image
+
+inputs:
+  - name: pipeline
+  - name: html
+
+params:
+  HTML_FILE:
+
+run:
+  path: sh
+  args:
+  - -exc
+  - |
+    cat "$HTML_FILE"

@@ -1,0 +1,22 @@
+resources:
+- name: pipeline
+  type: git
+  source:
+    uri: https://github.com/suhlig/pmc-notification
+    branch: master
+    paths: [ tasks/ruby-ci-image/Dockerfile ]
+
+- name: Ruby CI Image
+  type: docker-image
+  source:
+    repository: suhligibm/ruby-ci-image
+    username: {{dockerhub-username}}
+    password: {{dockerhub-password}}
+
+jobs:
+- name: Create Ruby CI image
+  plan:
+  - get: pipeline
+    trigger: true
+  - put: Ruby CI Image
+    params: { build: pipeline/ruby-ci-image/ruby }
