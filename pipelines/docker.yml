@@ -4,7 +4,7 @@ resources:
   source:
     uri: https://github.com/suhlig/pmc-notification
     branch: master
-    paths: [ tasks/docker, tasks/erb ]
+    paths: [ tasks ]
 
 - name: ruby-base-image
   type: docker-image
@@ -21,7 +21,7 @@ resources:
     password: {{dockerhub-password}}
 
 jobs:
-- name: Create base image
+- name: Base Image
   plan:
   - get: pipeline
     trigger: true
@@ -31,7 +31,7 @@ jobs:
       build: pipeline/tasks/docker
       dockerfile: pipeline/tasks/docker/ruby-base.docker
 
-- name: Create PMC Notes image
+- name: PMC Notes Image
   plan:
   - get: pipeline
     trigger: true
@@ -39,17 +39,36 @@ jobs:
   - get: ruby-base-image
     trigger: true
 
-  - task: Collect gems into Docker file
+  - task: Collect all Gemfiles
+    file: pipeline/tasks/collect-gemfiles/task.yml
+    input_mapping:
+      source:   pipeline
+      pipeline: pipeline
+    output_mapping: { target: gemfiles }
+    params:
+      SOURCE_GLOB: Gemfile*
+
+  - task: Add 'bundle install' to Docker file
     file: pipeline/tasks/erb/task.yml
     input_mapping:
-      source: pipeline
+      source:   pipeline
       pipeline: pipeline
-    output_mapping: { target: rendered }
+    output_mapping: { target: dockerfiles }
     params:
       SOURCE_FILE: tasks/docker/pmc-notes.docker.erb
       TARGET_FILE: pmc-notes.docker
 
+  - task: Collect all image files
+    file: pipeline/tasks/collect-image-files/task.yml
+    input_mapping:
+      gemfiles:    gemfiles
+      dockerfiles: dockerfiles
+      pipeline:    pipeline
+    output_mapping: { target: image-files }
+    params:
+      SOURCE_GLOB:
+
   - put: pmc-notes-image
     params:
-      build: rendered
-      dockerfile: rendered/pmc-notes.docker
+      build: image-files
+      dockerfile: image-files/pmc-notes.docker

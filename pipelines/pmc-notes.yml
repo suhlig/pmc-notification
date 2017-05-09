@@ -1,17 +1,17 @@
 resources:
-  - name: runtime-pmc-notes.markdown
-    type: git
-    source:
-      uri: https://github.com/cloudfoundry/pmc-notes
-      branch: master
-      paths: ["Runtime/*"]
-
   - name: pipeline
     type: git
     source:
       uri: https://github.com/suhlig/pmc-notification
       branch: master
       paths: ["tasks/*"]
+
+  - name: runtime-pmc-notes.markdown
+    type: git
+    source:
+      uri: https://github.com/cloudfoundry/pmc-notes
+      branch: master
+      paths: ["Runtime/*"]
 
 jobs:
   - name: Notify on new Runtime PMC notes

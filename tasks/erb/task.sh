@@ -1,3 +1,5 @@
-#!/bin/sh -ex
+#!/bin/bash -ex
 
-erb -T - source/$SOURCE_FILE > target/$TARGET_FILE
+pushd source
+  erb -T - "${SOURCE_FILE}" > ../target/"${TARGET_FILE}"
+popd

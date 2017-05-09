@@ -16,7 +16,7 @@ outputs:
 params:
   MARKDOWN_FILE:
   HTML_FILE:
-#  BUNDLE_GEMFILE: pipeline/tasks/md2html/Gemfile
+  BUNDLE_GEMFILE: pipeline/tasks/md2html/Gemfile
 
 run:
-  path: pipeline/tasks/md2html/md2html.sh
+  path: pipeline/tasks/md2html/task.sh

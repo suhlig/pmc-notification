@@ -1,19 +1,10 @@
 FROM suhligibm/ci-ruby-base:latest
 LABEL maintainer "Steffen Uhlig <Steffen.Uhlig@de.ibm.com>"
-<%
-require 'bundler'
 
-Dir.glob('**/Gemfile.lock').each do |file_name|
-  lockfile = nil
-
-  FileUtils.cd(File.dirname(file_name)) do
-    lockfile = Bundler::LockfileParser.new(Bundler.read_file(File.basename(file_name)))
-  end
-%>
-# from <%= file_name %>
-<% lockfile.dependencies.each do |gem| -%>
-RUN gem install <%= gem.name %> --version "<%= gem.requirement %>" --no-rdoc
 <%
-  end
-end
+Dir.glob('**/Gemfile').each do |file_name|
+  target_file_name = "/tmp/#{file_name}"
 -%>
+ADD <%= file_name %> <%= target_file_name %>
+RUN BUNDLE_GEMFILE=<%= target_file_name %> bundle install --jobs 4
+<% end -%>
