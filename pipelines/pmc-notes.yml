@@ -35,6 +35,5 @@ jobs:
         file: pipeline/tasks/notification/task.yml
         params:
           MAILGUN_API_KEY: {{mailgun-api-key}}
-          # Use SUBJECT_FILE instead
-          SUBJECT: Runtime PMC Meeting 2017-05-03
+          SUBJECT: Runtime PMC Meeting Notes
           HTML_FILE: html/output.html
