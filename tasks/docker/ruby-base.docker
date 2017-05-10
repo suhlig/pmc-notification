@@ -5,8 +5,6 @@ RUN apk add --no-cache                         \
       build-base                               \
       ca-certificates                          \
       bash                                     \
-      bash-doc                                 \
-      bash-completion                          \
       ruby                                     \
       ruby-dev                                 \
       ruby-io-console                          \
