@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-# Render $MARKDOWN_FILE to $HTML_FILE using api.github.com/markdown
+# Render the file passed as argument to $HTML_FILE using api.github.com/markdown
 
 require 'http'
 require 'json'
@@ -12,4 +12,9 @@ def render(markdown_filename, html_filename)
   File.write(html_filename, response_body)
 end
 
-render(ENV.fetch('MARKDOWN_FILE'), ENV.fetch('HTML_FILE'))
+if ARGV.size != 1
+  warn "Expect exactly ONE argument, but got #{ARGV.size}: #{ARGV.join(' ')}"
+  exit 1
+end
+
+render(ARGV.first, ENV.fetch('HTML_FILE'))

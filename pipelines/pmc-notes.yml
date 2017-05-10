@@ -27,7 +27,6 @@ jobs:
         input_mapping:
           - markdown: runtime-pmc-notes
         params:
-          MARKDOWN_FILE: markdown/Runtime/2017/2017-05-03-runtime.md
           HTML_FILE: html/output.html
         attempts: 3
 
