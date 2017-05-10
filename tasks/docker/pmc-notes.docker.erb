@@ -1,7 +1,7 @@
 FROM suhligibm/ci-ruby-base:latest
 LABEL maintainer "Steffen Uhlig <Steffen.Uhlig@de.ibm.com>"
 
-RUN apk add --update curl && rm -rf /var/cache/apk/*
+RUN apk add --update curl git && rm -rf /var/cache/apk/*
 
 <%
 Dir.glob('**/Gemfile').each do |file_name|
