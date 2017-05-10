@@ -34,7 +34,7 @@ jobs:
 - name: PMC Notes Image
   plan:
   - get: pipeline
-    trigger: true
+    trigger: false
 
   - get: ruby-base-image
     trigger: true
