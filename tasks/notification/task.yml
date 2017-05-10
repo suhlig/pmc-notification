@@ -12,6 +12,7 @@ inputs:
 
 params:
   HTML_FILE:
+  SUBJECT:
   MAILGUN_API_KEY:
 
 run:
