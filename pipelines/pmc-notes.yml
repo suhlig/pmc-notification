@@ -6,7 +6,7 @@ resources:
       branch: master
       paths: ["tasks/*"]
 
-  - name: runtime-pmc-notes.markdown
+  - name: runtime-pmc-notes
     type: git
     source:
       uri: https://github.com/cloudfoundry/pmc-notes
@@ -16,7 +16,7 @@ resources:
 jobs:
   - name: Notify on new Runtime PMC notes
     plan:
-      - get: runtime-pmc-notes.markdown
+      - get: runtime-pmc-notes
         trigger: true
 
       - get: pipeline
@@ -25,9 +25,7 @@ jobs:
       - task: Convert Markdown to HTML
         file: pipeline/tasks/md2html/task.yml
         input_mapping:
-          - markdown: runtime-pmc-notes.markdown
-          - pipeline: pipeline
-        output_mapping: { html: runtime-pmc-notes.html }
+          - markdown: runtime-pmc-notes
         params:
           MARKDOWN_FILE: markdown/Runtime/2017/2017-05-03-runtime.md
           HTML_FILE: html/2017-05-03-runtime.html
@@ -35,9 +33,6 @@ jobs:
 
       - task: Send notification
         file: pipeline/tasks/notification/task.yml
-        input_mapping:
-          - pipeline: pipeline
-          - html: runtime-pmc-notes.html
         params:
           MAILGUN_API_KEY: {{mailgun-api-key}}
           HTML_FILE: html/2017-05-03-runtime.html
