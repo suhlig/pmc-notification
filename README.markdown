@@ -12,7 +12,12 @@ Steps:
 
 * Render the file as HTML
 
-* Send the file via the SMTP resource
+* Send the file via mail to me
+
+# Deployment
+
+* Copy `sample-secrets.yml` to `secrets.yml` and fill in the values
+* Add the pipeline to your Concourse
 
 # Development
 
@@ -22,7 +27,7 @@ Some useful `fly` commands:
 
   ```bash
   fly --target=lite login --concourse-url=http://$(docker-machine ip):8080
-  fly --target=lite set-pipeline --pipeline=pmc-notes --config=pipelines/pmc-notes.yml
+  fly --target=lite set-pipeline --pipeline=pmc-notes --config=pipelines/pmc-notes.yml --load-vars-from=secrets.yml
   fly --target=lite unpause-pipeline --pipeline=pmc-notes
   fly --target=lite intercept -b 3
   ```

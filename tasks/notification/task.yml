@@ -12,10 +12,7 @@ inputs:
 
 params:
   HTML_FILE:
+  MAILGUN_API_KEY:
 
 run:
-  path: sh
-  args:
-  - -exc
-  - |
-    cat "$HTML_FILE"
+  path: pipeline/tasks/notification/task.sh
