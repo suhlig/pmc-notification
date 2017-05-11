@@ -1,0 +1,10 @@
+source 'https://rubygems.org'
+
+gem 'http'
+gem 'tzinfo'
+gem 'icalendar-recurrence'
+
+group :development do
+  gem 'pry'
+  gem 'rb-readline'
+end
