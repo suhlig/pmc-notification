@@ -2,5 +2,5 @@
 --require spec_helper
 --format documentation
 --order rand
---backtrace
 -I lib
+--backtrace

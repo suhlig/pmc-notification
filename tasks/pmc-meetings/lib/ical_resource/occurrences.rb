@@ -17,8 +17,9 @@ module IcalResource
           EventOccurrence.new(event, occurrence)
         end
       end.
+        flatten.
         compact.
-        flatten
+        sort_by { |eo| eo.occurrence.start_time }
     end
   end
 end
