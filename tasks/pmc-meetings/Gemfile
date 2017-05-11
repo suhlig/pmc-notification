@@ -1,10 +1,18 @@
+# frozen_string_literal: true
+
 source 'https://rubygems.org'
 
 gem 'http'
-gem 'tzinfo'
 gem 'icalendar-recurrence'
+gem 'tzinfo'
 
 group :development do
-  gem 'pry'
+  gem 'bundler'
+  gem 'guard-bundler'
+  gem 'guard-rspec'
+  gem 'pry-byebug'
+  gem 'rake'
   gem 'rb-readline'
+  gem 'rspec'
+  gem 'rubocop'
 end
