@@ -4,15 +4,11 @@ I wanted to get a nice-looking copy of the [CF Runtime PMC notes](https://github
 
 Steps:
 
-* Find the date of most recent PMC meeting, e.g. from the [CF Runtime PMC](https://www.google.com/calendar/ical/cloudfoundry.org_8ms13q67p9jjeeilng6dosnu50%40group.calendar.google.com/public/basic.ics) calendar
+* The iCalendar resource publishes PMC meetings
 
-  More info in the [wiki](https://github.com/cloudfoundry-community/cf-docs-contrib/wiki)
+  We can use the [CF Runtime PMC](https://www.google.com/calendar/ical/cloudfoundry.org_8ms13q67p9jjeeilng6dosnu50%40group.calendar.google.com/public/basic.ics) calendar; more info in the [wiki](https://github.com/cloudfoundry-community/cf-docs-contrib/wiki).
 
-* Grab the latest file matching the date, e.g. `Runtime/2017/2017-04-18-runtime.md`
-
-* Render the file as HTML
-
-* Send the file via mail to me
+* When it triggers, we grab the latest file from the [CF Runtime PMC notes](https://github.com/cloudfoundry/pmc-notes) repository, render it to HTML and send it via email to me.
 
 # Deployment
 

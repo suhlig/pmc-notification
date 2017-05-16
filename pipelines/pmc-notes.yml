@@ -22,8 +22,11 @@ resources:
 jobs:
   - name: Notify on new Runtime PMC notes
     plan:
-      - get: runtime-pmc-notes
+      - get: runtime-pmc-meetings
         trigger: true
+
+      - get: runtime-pmc-notes
+        trigger: false
 
       - get: pipeline
         trigger: false
