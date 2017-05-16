@@ -3,4 +3,3 @@
 --format documentation
 --order rand
 -I lib
---backtrace

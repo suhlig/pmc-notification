@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+
 # frozen_string_literal: true
 
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
@@ -8,7 +9,11 @@ require 'ical_resource'
 
 response = HTTP.follow.get(ENV.fetch('CALENDAR_URL'))
 calendar = Icalendar::Calendar.parse(response).first
-range = IcalResource::RangeParser.month(2017, 3)
+
+range_spec = ENV.fetch('RANGE_SPEC', ARGV.first || 'today')
+range = IcalResource::RangeParser.parse(range_spec)
+
+warn "Looking for events within #{range}"
 
 IcalResource::Occurrences.new(calendar).within(range).each do |event_occurrence|
   event = event_occurrence.event

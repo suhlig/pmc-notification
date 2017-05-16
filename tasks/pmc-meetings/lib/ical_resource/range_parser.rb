@@ -2,7 +2,21 @@
 
 module IcalResource
   class RangeParser
+    class InvalidRangeError < StandardError
+      def initialize(invalid_range_spec)
+        super("Invalid range spec: #{invalid_range_spec}")
+      end
+    end
+
     class << self
+      def parse(spec)
+        if self.respond_to?(spec)
+          self.public_send(spec)
+        else
+          raise InvalidRangeError.new(spec)
+        end
+      end
+
       def day(day)
         beginning = Time.utc(day.year, day.month, day.day, 0, 0, 0)
         ending    = Time.utc(day.year, day.month, day.day, 23, 59, 59)

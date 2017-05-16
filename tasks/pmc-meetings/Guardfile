@@ -16,3 +16,10 @@ guard :rspec, cmd: 'bundle exec rspec' do
   ruby = dsl.ruby
   dsl.watch_spec_files_for(ruby.lib_files)
 end
+
+guard :bundler do
+  require 'guard/bundler'
+  require 'guard/bundler/verify'
+  watch('Gemfile')
+  watch(/^.*\.gemspec/)
+end
